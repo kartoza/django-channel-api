@@ -13,3 +13,6 @@ Sphinx
 # pdb plus plus
 pdbpp
 
+channels
+asgi_redis
+
