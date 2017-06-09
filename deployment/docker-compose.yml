@@ -81,6 +81,7 @@ uwsgi-ephemeral:
     - db:db
     - rabbitmq:rabbitmq
     - worker:worker
+    - redis:redis
   user: root
   restart: on-failure:5
 
@@ -116,6 +117,9 @@ dbbackups:
     - PGHOST=db
     - PGDATABASE=gis
   restart: always
+
+redis:
+  image: redis
 
 # This is normally the main entry point for a production server
 web:
@@ -164,6 +168,7 @@ devweb:
     - smtp:smtp
     - db:db
     - rabbitmq:rabbitmq
+    - redis:redis
   ports:
     # for django test server
     - "64202:8080"

@@ -15,6 +15,7 @@ from .contrib import *  # noqa
 INSTALLED_APPS += (
     # Add any additional project apps here
     'clients',
+    'channel_api'
 )
 
 # Due to profile page does not available,
@@ -47,6 +48,17 @@ MIDDLEWARE_CLASSES = (
 ) + MIDDLEWARE_CLASSES
 
 DATABASES = {}
+
+# Chanel Web Socket Settings
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "ROUTING": "channel_api.routing.channel_routing",
+        "CONFIG": {
+            "hosts": [("redis", 6379)],
+        }
+    },
+}
 
 ####################
 # DYNAMIC SETTINGS #
