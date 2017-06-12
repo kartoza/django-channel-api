@@ -1,12 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from channels import Group
 
 __author__ = 'Muhammad Anis <anis@kartoza.com>'
 __date__ = '09/06/17'
 
 
-class Group(APIView):
+class GroupAPI(APIView):
     """
     Get
     """
@@ -16,5 +17,8 @@ class Group(APIView):
      Create A new message to spesific group
     """
     def post(self,request, format=None):
-        data = request.data
+        group_name = request.data['group']
+        messages = request.data['messages']
+        # Push it to channel
+        Group(group_name).send(messages)
         return Response([], status=status.HTTP_201_CREATED)
