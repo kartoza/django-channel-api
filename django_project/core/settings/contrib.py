@@ -46,7 +46,8 @@ INSTALLED_APPS += (
      "cartridge.shop",  # mezzanine store
      "modal_announcements",
      'payment',
-     'channels'
+     'channels',
+     'rest_framework'
 )
 
 # mezzanine-mdown options

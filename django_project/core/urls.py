@@ -45,6 +45,7 @@ urlpatterns = i18n_patterns(
         name="shop_order_history"),
 
     ("^clients/", include('clients.urls')),
+    ("^channel/", include('channel_api.urls')),
 
     # For mezzanine-agenda
     ("^%s/" % settings.EVENT_SLUG, include("mezzanine_agenda.urls")),
