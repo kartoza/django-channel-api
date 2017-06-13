@@ -15,4 +15,5 @@ pdbpp
 
 channels
 asgi_redis
+djangorestframework
 

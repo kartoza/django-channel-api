@@ -18,7 +18,8 @@ class GroupAPI(APIView):
     """
     def post(self,request, format=None):
         group_name = request.data['group']
-        messages = request.data['messages']
+        messages = request.data['text']
+        data = {"text" : messages}
         # Push it to channel
-        Group(group_name).send(messages)
+        Group(group_name).send(data)
         return Response([], status=status.HTTP_201_CREATED)
