@@ -8,8 +8,7 @@ from __future__ import absolute_import, unicode_literals
 from .utils import absolute_path
 
 ADMINS = (
-    ('Tim Sutton', 'tim@kartoza.com'),
-    ('Christian Christelis', 'christian@kartoza.com')
+    ('Muhammad Anis', 'anis@kartoza.com')
 )
 
 MANAGERS = ADMINS
@@ -113,9 +112,6 @@ TEMPLATES = [
                 "django.core.context_processors.media",
                 "django.core.context_processors.request",
                 "django.core.context_processors.tz",
-                # Dirty hack for now - should be specified in contrib.py
-                "mezzanine.conf.context_processors.settings",
-                "mezzanine.pages.context_processors.page",
             ],
         },
     },
