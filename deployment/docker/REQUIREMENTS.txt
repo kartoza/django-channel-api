@@ -15,3 +15,5 @@ asgi_redis
 
 #Rest Framework API
 djangorestframework
+#channel_api
+git+git://github.com/euclidian/django-channel-api-module.git
