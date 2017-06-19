@@ -89,12 +89,17 @@ uwsgi:
   # Note you cannot scale if you use conteiner_name
   extends: uwsgi-base
   container_name: channel-api-uwsgi
+  command: python manage.py runserver 0.0.0.0:8080
   links:
     - smtp:smtp
     - db:db
     - rabbitmq:rabbitmq
     - worker:worker
+    - redis:redis
   restart: always
+  ports:
+    # for django test server
+    - "64205:8080"
 
 dbbackups:
   # Note you cannot scale if you use conteiner_name
