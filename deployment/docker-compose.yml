@@ -125,6 +125,7 @@ dbbackups:
 
 redis:
   image: redis
+  container-name: channel-redis
 
 # This is normally the main entry point for a production server
 web:
