@@ -14,8 +14,7 @@ from .contrib import *  # noqa
 # Project apps
 INSTALLED_APPS += (
     # Add any additional project apps here
-    'clients',
-    'channel_api'
+    'channel_api',
 )
 
 # Due to profile page does not available,

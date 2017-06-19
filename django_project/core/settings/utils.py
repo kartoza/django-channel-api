@@ -35,6 +35,7 @@ def ensure_secret_key_file():
             50, 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
         with open(secret_path, 'w') as f:
             f.write("SECRET_KEY = " + repr(secret_key) + "\n")
+            f.write("SENTRY_DSN = ''" + "\n")
             f.write("DISQUS_WEBSITE_SHORTNAME = "
                     + repr(disqus_shortname) + "\n")
 

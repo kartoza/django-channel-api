@@ -19,7 +19,7 @@ rabbitmq:
 
 nginx:
   # Note you cannot scale if you use conteiner_name
-  container_name: mezzanine-nginx
+  container_name: channel-api-nginx
   image: nginx
   hostname: nginx
   volumes:
@@ -30,7 +30,7 @@ nginx:
 
 smtp:
   # Note you cannot scale if you use conteiner_name
-  container_name: mezzanine-smtp
+  container_name: channel-api-smtp
   image: catatnight/postfix
   hostname: postfix
   environment:
@@ -41,7 +41,7 @@ smtp:
 
 db:
   # Note you cannot scale if you use conteiner_name
-  container_name: mezzanine-db
+  container_name: channel-api-db
   image: kartoza/postgis:9.4-2.1
   volumes:
     - ./pg/postgres_data:/var/lib/postgresql
@@ -62,7 +62,7 @@ uwsgi-base:
     - DATABASE_HOST=db
     - RABBITMQ_HOST=rabbitmq
     - DJANGO_SETTINGS_MODULE=core.settings.prod_docker
-    - VIRTUAL_HOST=mezzanine.kartoza.com
+    - VIRTUAL_HOST=channel-api.kartoza.com
     - VIRTUAL_PORT=8080
     # Set your locale - you need to ensure this is created in Dockerfile too...
     - LC_ALL=en_ZA.UTF-8
@@ -88,7 +88,7 @@ uwsgi-ephemeral:
 uwsgi:
   # Note you cannot scale if you use conteiner_name
   extends: uwsgi-base
-  container_name: mezzanine-uwsgi
+  container_name: channel-api-uwsgi
   links:
     - smtp:smtp
     - db:db
@@ -98,7 +98,7 @@ uwsgi:
 
 dbbackups:
   # Note you cannot scale if you use conteiner_name
-  container_name: mezzanine-db-backups
+  container_name: channel-api-db-backups
   image: kartoza/pg-backup:9.4
   hostname: pg-backups
   volumes:
@@ -108,7 +108,7 @@ dbbackups:
   environment:
     # take care to let the project name below match that
     # declared in the top of the makefile
-    - DUMPPREFIX=PG_mezzanine
+    - DUMPPREFIX=PG_channel-api
     # These are all defaults anyway, but setting explicitly in
     # case we ever want to ever use different credentials
     - PGUSER=docker
@@ -124,7 +124,7 @@ redis:
 # This is normally the main entry point for a production server
 web:
   # Note you cannot scale if you use conteiner_name
-  container_name: mezzanine-web
+  container_name: channel-api-web
   image: nginx
   hostname: nginx
   volumes:
@@ -144,10 +144,10 @@ web:
 # from produ environment if wanted
 devweb:
   # Note you cannot scale if you use conteiner_name
-  container_name: mezzanine-dev-web
+  container_name: channel-api-dev-web
   build: docker
   dockerfile: Dockerfile-dev
-  hostname: mezzanine-dev-web
+  hostname: channel-api-dev-web
   environment:
     - DATABASE_NAME=gis
     - DATABASE_USERNAME=docker
@@ -156,7 +156,7 @@ devweb:
     - RABBITMQ_HOST=rabbitmq
     - DJANGO_SETTINGS_MODULE=core.settings.prod_docker
     - PYTHONPATH=/home/web/django_project
-    - VIRTUAL_HOST=mezzanine.kartoza.com
+    - VIRTUAL_HOST=channel-api.kartoza.com
     - VIRTUAL_PORT=8080
   volumes:
     - ../django_project:/home/web/django_project
@@ -187,7 +187,7 @@ worker:
      - DATABASE_QGIS_HOST=db_gis
      - RABBITMQ_HOST=rabbitmq
      - DJANGO_SETTINGS_MODULE=core.settings.prod_docker
-     - VIRTUAL_HOST=mezzanine.kartoza.com
+     - VIRTUAL_HOST=channel-api.kartoza.com
      - VIRTUAL_PORT=8080
      - C_FORCE_ROOT=true
    volumes:
