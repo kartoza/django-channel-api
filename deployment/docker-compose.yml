@@ -51,10 +51,10 @@ uwsgi-ephemeral:
   user: root
   restart: on-failure:5
 
-uwsgi:
+web:
   # Note you cannot scale if you use conteiner_name
   extends: uwsgi-base
-  container_name: channel-api-uwsgi
+  container_name: channel-api-web
   command: python manage.py runserver 0.0.0.0:8080
   links:
     - db:db
@@ -67,24 +67,6 @@ uwsgi:
 redis:
   image: redis
   container_name: channel-redis
-
-# This is normally the main entry point for a production server
-web:
-  # Note you cannot scale if you use conteiner_name
-  container_name: channel-api-web
-  image: nginx
-  hostname: nginx
-  volumes:
-    - ./sites-enabled:/etc/nginx/conf.d:ro
-    # I dont use volumes_from as I want to use the ro modifier
-    - ./static:/home/web/static:ro
-    - ./media:/home/web/media:ro
-    - ./logs:/var/log/nginx
-  links:
-    - uwsgi:uwsgi
-  ports:
-    - "64200:8080"
-  restart: always
 
 # This is the entry point for a development server.
 # Run with --no-deps to run attached to the services
