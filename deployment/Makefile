@@ -21,7 +21,7 @@ build:
 	@echo "------------------------------------------------------------------"
 	@echo "Building in production mode"
 	@echo "------------------------------------------------------------------"
-	@docker-compose -p $(PROJECT_ID) build uwsgi
+	@docker-compose -p $(PROJECT_ID) build web
 	@docker-compose -p $(PROJECT_ID) build uwsgi-ephemeral
 
 
@@ -117,7 +117,7 @@ kill-uwsgi:
 	@echo "------------------------------------------------------------------"
 	@echo "Killing in uwsgi production mode"
 	@echo "------------------------------------------------------------------"
-	@docker-compose -p $(PROJECT_ID) kill uwsgi
+	@docker-compose -p $(PROJECT_ID) kill web
 
 kill-uwsgi-ephemeral:
 	@echo
@@ -141,7 +141,7 @@ logs:
 	@echo "------------------------------------------------------------------"
 	@echo "Showing uwsgi logs in production mode"
 	@echo "------------------------------------------------------------------"
-	@docker-compose -p $(PROJECT_ID) logs uwsgi
+	@docker-compose -p $(PROJECT_ID) logs web
 
 dblogs:
 	@echo
