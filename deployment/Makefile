@@ -1,4 +1,4 @@
-PROJECT_ID := mezzanine
+PROJECT_ID := channel
 PRODUCTION_HOST := kartoza4
 
 SHELL := /bin/bash
