@@ -52,6 +52,9 @@ RUN apt-get -y --force-yes install gettext
 # Open port 8080 as we will be running our uwsgi socket on that
 EXPOSE 8080
 
+# using daphne server for running channel.
+CMD daphne -b 0.0.0.0 -p 8080 <app>.asgi:channel_layer
+
 WORKDIR /home/web/django_project
 
 CMD ["python","manage.py", "runserver","0.0.0.0:8080"]
