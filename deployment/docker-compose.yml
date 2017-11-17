@@ -55,7 +55,8 @@ web:
   # Note you cannot scale if you use conteiner_name
   extends: uwsgi-base
   container_name: channel-api-web
-  command: python manage.py runserver 0.0.0.0:8080
+  # using daphne server for running channel.
+  command: daphne -b 0.0.0.0 -p 8080 <app>.asgi:channel_layer
   links:
     - db:db
     - redis:redis

@@ -13,6 +13,9 @@ requests==2.0.0
 channels
 asgi_redis
 
+#daphne server
+daphne==1.3.0
+
 #Rest Framework API
 djangorestframework>=3.2,<3.7
 #channel_api
