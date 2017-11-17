@@ -1,6 +1,5 @@
 #--------- Generic stuff all our Dockerfiles should start with so we get caching ------------
 # Note this base image is based on debian
-# FROM channelapi_uwsgi
 FROM channelapi_web
 MAINTAINER Tim Sutton<tim@kartoza.com>
 
@@ -28,7 +27,6 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 ADD REQUIREMENTS-dev.txt /REQUIREMENTS-dev.txt
 RUN pip install -r /REQUIREMENTS-dev.txt
-# RUN pip uninstall -y South
 ADD bashrc /root/.bashrc
 
 # --------------------------------------------------------
