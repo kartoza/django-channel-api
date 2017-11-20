@@ -38,6 +38,27 @@ make shell
 python manage.py createsuperuser
 exit
 ```
+## Local Development
+
+Ensure that you are in the project **deployment directory**.
+```
+cd /path/to/django-channels-api/deployment
+```
+Then to setup the local development environment run the following commands:
+
+```
+make deploy
+# Start the needed docker containers with
+make web
+# Start the web development containers with
+make devweb 
+```
+
+After a succssful run of the above commands, you need to point the pycharm remote enterpreter to the remote python enterpreter for this project.
+
+Next go to pycharm ssh remote enterpreter settings and point the **localhost** to port **64203**. 
+And in edit configuration settings for the **django debug server** let the browser run on address **http://0.0.0.0:64202.**
+Once these setups are in place you will be able to load the remote entrepreter python version and installed packages for development as well as being able to run the django server in the browser.
 
 ## Staging
 
