@@ -8,17 +8,6 @@
 
 # Our main nginx service - this is for testing only - normally
 # You would use a standalone nginx instance running on the host!
-db:
-  # Note you cannot scale if you use conteiner_name
-  container_name: channel-api-db
-  image: kartoza/postgis:9.4-2.1
-  volumes:
-    - ./pg/postgres_data:/var/lib/postgresql
-    - ./backups:/backups
-  environment:
-    - USERNAME=docker
-    - PASS=docker
-  restart: always
 
 uwsgi-base:
   # Note you cannot scale if you use conteiner_name
@@ -43,20 +32,12 @@ uwsgi-base:
     - ./logs:/var/log/
   user: root
 
-uwsgi-ephemeral:
-  extends: uwsgi-base
-  links:
-    - db:db
-    - redis:redis
-  user: root
-  restart: on-failure:5
-
 web:
   # Note you cannot scale if you use conteiner_name
   extends: uwsgi-base
   container_name: channel-api-web
   links:
-    - db:db
+#    - db:db
     - redis:redis
   restart: always
   ports:
@@ -93,7 +74,7 @@ devweb:
     - ./reports:/home/web/reports
     - ./logs:/var/log/
   links:
-    - db:db
+#    - db:db
     - redis:redis
   ports:
     # for django test server
