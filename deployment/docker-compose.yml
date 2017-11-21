@@ -37,7 +37,6 @@ web:
   extends: uwsgi-base
   container_name: channel-api-web
   links:
-#    - db:db
     - redis:redis
   restart: always
   ports:
@@ -74,7 +73,6 @@ devweb:
     - ./reports:/home/web/reports
     - ./logs:/var/log/
   links:
-#    - db:db
     - redis:redis
   ports:
     # for django test server
