@@ -8,14 +8,14 @@ MAINTAINER Alison Mukoma<alison@kartoza.com>
 RUN  export DEBIAN_FRONTEND=noninteractive
 ENV  DEBIAN_FRONTEND noninteractive
 RUN  dpkg-divert --local --rename --add /sbin/initctl
-#RUN  ln -s /bin/true /sbin/initctl
 
 # Use local cached debs from host (saves your bandwidth!)
 # Change ip below to that of your apt-cacher-ng host
 # Or comment this line out if you do not with to use caching
 ADD 71-apt-cacher-ng /etc/apt/apt.conf.d/71-apt-cacher-ng
 RUN apt-get -y update
-RUN apt-get -y install \ 
+RUN apt-get -y install \
+    python-gdal \
     npm \
     nodejs \
     rpl
@@ -37,11 +37,6 @@ ENV LC_ALL en_ZA.UTF-8
 ADD REQUIREMENTS.txt /REQUIREMENTS.txt
 RUN pip install -r /REQUIREMENTS.txt
 
-#RUN pip uninstall -y South
-
-#RUN echo 'http://ppa.launchpad.net/libreoffice/ppa/ubuntu jessie main' | tee -a /etc/apt/sources.list
-#RUN echo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1378B444
-
 RUN apt-get update -y; apt-get -y --force-yes install yui-compressor
 
 # Install translation
@@ -52,7 +47,5 @@ EXPOSE 8080
 
 WORKDIR /home/web/django_project
 
-# using daphne server for running channel.
-RUN daphne -b 0.0.0.0 -p 8080 core.asgi:channel_layer
-
-CMD ["python","manage.py", "runserver","0.0.0.0:8080"]
+# Using daphne server for running channel.
+CMD ["daphne", "-b", "0.0.0.0", "-p", "8080", "core.asgi:channel_layer"]
