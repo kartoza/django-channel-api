@@ -3,7 +3,7 @@
 # Tim Sutton, December 2014
 
 FROM python:2.7
-MAINTAINER Muhammad Anis<anis@kartoza.com>
+MAINTAINER Alison Mukoma<alison@kartoza.com>
 
 RUN  export DEBIAN_FRONTEND=noninteractive
 ENV  DEBIAN_FRONTEND noninteractive
@@ -15,9 +15,7 @@ RUN  dpkg-divert --local --rename --add /sbin/initctl
 # Or comment this line out if you do not with to use caching
 ADD 71-apt-cacher-ng /etc/apt/apt.conf.d/71-apt-cacher-ng
 RUN apt-get -y update
-RUN apt-get -y install \
-    python-gdal \
-    python-geoip \
+RUN apt-get -y install \ 
     npm \
     nodejs \
     rpl
@@ -39,7 +37,7 @@ ENV LC_ALL en_ZA.UTF-8
 ADD REQUIREMENTS.txt /REQUIREMENTS.txt
 RUN pip install -r /REQUIREMENTS.txt
 
-RUN pip uninstall -y South
+#RUN pip uninstall -y South
 
 #RUN echo 'http://ppa.launchpad.net/libreoffice/ppa/ubuntu jessie main' | tee -a /etc/apt/sources.list
 #RUN echo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1378B444
@@ -52,9 +50,9 @@ RUN apt-get -y --force-yes install gettext
 # Open port 8080 as we will be running our uwsgi socket on that
 EXPOSE 8080
 
-# using daphne server for running channel.
-CMD daphne -b 0.0.0.0 -p 8080 <app>.asgi:channel_layer
-
 WORKDIR /home/web/django_project
+
+# using daphne server for running channel.
+RUN daphne -b 0.0.0.0 -p 8080 core.asgi:channel_layer
 
 CMD ["python","manage.py", "runserver","0.0.0.0:8080"]
