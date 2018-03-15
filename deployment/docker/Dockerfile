@@ -36,6 +36,9 @@ ENV LANG en_ZA.UTF-8
 ENV LANGUAGE en_ZA:en
 ENV LC_ALL en_ZA.UTF-8
 
+# This package is needed for the requirements to install successfuly.
+RUN pip install pathlib
+
 ADD REQUIREMENTS.txt /REQUIREMENTS.txt
 RUN pip install -r /REQUIREMENTS.txt
 
