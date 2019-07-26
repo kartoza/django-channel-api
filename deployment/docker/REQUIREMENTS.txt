@@ -10,7 +10,7 @@ raven==5.8.1
 requests==2.0.0
 
 #channel
-channels
+channels==1.1.8
 asgi_redis
 
 #Rest Framework API

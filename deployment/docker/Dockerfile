@@ -18,18 +18,21 @@ RUN apt-get -y update
 RUN apt-get -y install \
     python-gdal \
     python-geoip \
-    npm \
-    nodejs \
     rpl
+
+# Install Node js
+RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt-get -y --force-yes install nodejs
 RUN npm -g install yuglify
 
 # Debian is messed up and aliases node as nodejs
 # So when yuglify is installed it references the wrong node binary...
 # lets fix that here...
 
-RUN rpl "env node" "env nodejs" /usr/local/lib/node_modules/yuglify/bin/yuglify
+RUN rpl "env node" "env nodejs" /usr/lib/node_modules/yuglify/bin/yuglify
 
-RUN apt-get install locales && \
+RUN apt-get -y install locales && \
     echo "en_ZA.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen en_ZA.UTF-8
 ENV LANG en_ZA.UTF-8
